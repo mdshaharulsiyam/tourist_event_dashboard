@@ -46,13 +46,19 @@ const EventAddEditForm = ({ selectedData, closeModal }) => {
       toast.error("Please select event image");
     }
     // values.event_image = values.event_image?.[0]?.originFileObj;
-    values.date = dayjs(values?.date).toDate().toISOString(); //new Date(dayjs(values?.date).toDate().toISOString());
+    // values.date = dayjs(values?.date).toDate().toISOString(); //new Date(dayjs(values?.date).toDate().toISOString());
+    values.date = dayjs(values?.date).add(1, "day").toDate().toISOString();
     values.recurrence_end = dayjs(values?.recurrence_end)
       .toDate()
       .toISOString();
-    values.end_date = dayjs(values?.end_date).toDate().toISOString();
+    // values.end_date = dayjs(values?.end_date).toDate().toISOString();
+    values.end_date = dayjs(values?.end_date)
+      .add(1, "day")
+      .toDate()
+      .toISOString();
     values.time = dayjs(values?.time).format("hh:mm A");
     values.end_time = dayjs(values?.end_time).format("hh:mm A");
+
     values.latitude = locationData?.lng;
     values.longitude = locationData?.lat;
     values.description = text;
@@ -61,7 +67,6 @@ const EventAddEditForm = ({ selectedData, closeModal }) => {
     if (isFeatured) {
       values.featured = dayjs(values?.featuredDate).toDate().toISOString();
     }
-    console.log(values);
     const { img, tag, featuredDate, ...otherFields } = values;
     const formData = new FormData();
     Object.keys(otherFields)?.map((key) => {
@@ -108,10 +113,12 @@ const EventAddEditForm = ({ selectedData, closeModal }) => {
       form.setFieldsValue({
         name: selectedData?.name,
         category: selectedData?.category?._id,
-        date: dayjs(selectedData?.date),
+        // date: dayjs(selectedData?.date),
+        date: dayjs(selectedData?.date).subtract(1, "day"),
         time: moment(selectedData?.time, "h:mm A"),
         end_time: moment(selectedData?.end_time, "h:mm A"),
-        end_date: dayjs(selectedData?.end_date),
+        // end_date: dayjs(selectedData?.end_date),
+        end_date: dayjs(selectedData?.end_date).subtract(1, "day"),
         description: selectedData?.description,
         spanishDescription: selectedData?.spanishDescription,
         address: selectedData?.address,

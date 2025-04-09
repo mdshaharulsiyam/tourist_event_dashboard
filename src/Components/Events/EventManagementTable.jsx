@@ -177,7 +177,8 @@ const EventManagementTable = ({ searchTerm }) => {
       dataIndex: "date",
       key: "date",
       render: (_, record) => (
-        <span>{moment(record?.date).format("MMMM Do")}</span>
+        // <span>{moment(record?.date).format("MMMM Do")}</span>
+        <span>{record?.date?.split("T")?.[0]}</span>
       ),
     },
     {
@@ -185,7 +186,8 @@ const EventManagementTable = ({ searchTerm }) => {
       dataIndex: "end_date",
       key: "end_date",
       render: (_, record) => (
-        <span>{moment(record?.end_date).format("MMMM Do")}</span>
+        <span>{record?.end_date?.split("T")?.[0]}</span>
+        // <span>{moment(record?.end_date).format("MMMM Do")}</span>
       ),
     },
     {
